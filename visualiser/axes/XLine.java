@@ -5,10 +5,4 @@ public class XLine extends AxesLine {
         super(x, y, width, height);
 
     }
-
-    @Override
-    public void move(){
-        x += (velocity);
-        width += (velocity);
-    }
 }

@@ -35,10 +35,6 @@ public class Panel extends JPanel implements Runnable{
     public void createGrid(){
 
         coordsHandler = new CoordsHandler();
-        cameraCenter = new int[2];
-        cameraCenter[0] =+ 200;
-        cameraCenter[1] =- 200;
-        System.out.println(Arrays.toString(cameraCenter));
 
         xLine = new XLine(0, (HEIGHT/2), WIDTH, (HEIGHT/2));
         yLine = new YLine((WIDTH/2), 0, (WIDTH/2), HEIGHT);
@@ -57,12 +53,10 @@ public class Panel extends JPanel implements Runnable{
     public void draw(Graphics g) {
         xLine.draw(g);
         yLine.draw(g);
-        sqr.draw(g);
+        //sqr.draw(g);
     }
 
     public void move(){
-        xLine.move();
-        yLine.move();
         coordsHandler.move();
     }
 

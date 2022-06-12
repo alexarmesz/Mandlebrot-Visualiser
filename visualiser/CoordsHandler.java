@@ -14,6 +14,10 @@ public class CoordsHandler {
 
     }
 
+    public int getWorldCenterY(){
+        return worldCenterY;
+    }
+
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_W) {
             setDirection(speed, "y");
@@ -37,7 +41,7 @@ public class CoordsHandler {
     }
     public void setDirection(int speed, String axis) {
         if (axis == "y") { 
-            yVelocity += speed;
+            yVelocity = speed;
         }
     }
 
