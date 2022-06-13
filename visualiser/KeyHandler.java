@@ -3,7 +3,7 @@ import java.awt.event.*;
 
 public class KeyHandler implements KeyListener{
 
-    public boolean wPressed, sPressed, aPressed, dPressed;
+    public boolean wPressed, sPressed, aPressed, dPressed, rPressed;
 
 
     @Override
@@ -24,6 +24,8 @@ public class KeyHandler implements KeyListener{
                 aPressed = true;
             case (KeyEvent.VK_D):
                 dPressed = true;
+            case (KeyEvent.VK_R):
+                rPressed = true;
         }
     }
 
@@ -39,6 +41,9 @@ public class KeyHandler implements KeyListener{
                 aPressed = false;
             case (KeyEvent.VK_D):
                 dPressed = false;
+            case (KeyEvent.VK_R):
+                rPressed = false;
+            
         }
     }
     

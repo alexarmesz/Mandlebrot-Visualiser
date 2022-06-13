@@ -44,9 +44,11 @@ public class Panel extends JPanel implements Runnable{
 
     public void colour(Graphics g){
         g.setColor(Color.red);
-        for (int y = 0; y < HEIGHT; y++){
-            for (int x = 0; x < WIDTH; x++){
-                g.fillRect(x, y, 1, 1);
+        for (int y = 0 - xLine.displaceY; y < HEIGHT - xLine.displaceY; y++){
+            for (int x = 0 + yLine.displaceX; x < WIDTH + yLine.displaceX; x++){
+                if (y == x){
+                    g.fillRect(x-yLine.displaceX, y+xLine.displaceY, 2, 2);
+                }
             }
         }
     }
@@ -56,27 +58,34 @@ public class Panel extends JPanel implements Runnable{
         xLine.draw(g);
         yLine.draw(g);
         
+        
         //sqr.draw(g);
     }
 
     public void keyEvents(){
         if (keyHandler.wPressed){
-            xLine.displaceY -= 10;
+            xLine.displaceY += 5;
         }
         else if (keyHandler.sPressed){
-            xLine.displaceY += 10;
+            xLine.displaceY -= 5;
         }
         else if (keyHandler.aPressed){
-            yLine.displaceX += 10;
+            yLine.displaceX -= 5;
         }
         else if (keyHandler.dPressed){
-            yLine.displaceX -= 10;
+            yLine.displaceX += 5;
+        }
+        else if (keyHandler.rPressed){
+            xLine.displaceX = 0;
+            xLine.displaceY = 0;
+            yLine.displaceX = 0;
+            xLine.displaceY = 0;
         }
     }
 
     public void run(){
         long lastTime = System.nanoTime();
-        double ticks = 20.0;
+        double ticks = 60.0;
         double ns = 1000000000 / ticks;
         double delta = 0;
 
@@ -84,10 +93,11 @@ public class Panel extends JPanel implements Runnable{
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
-            if(delta >= 1){
-                repaint();
+            
+            if(delta >= 0.25){
                 keyEvents();
-                delta--;
+                repaint();
+                delta-=0.25;
             }
         
         }

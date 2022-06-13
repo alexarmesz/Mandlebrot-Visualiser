@@ -19,6 +19,6 @@ public class Line {
 
     public void draw(Graphics g){
         g.setColor(Color.black);
-        g.drawLine(x+displaceX, y-displaceY, x2+displaceX, y2-displaceY);
+        g.drawLine(x-displaceX, y+displaceY, x2-displaceX, y2+displaceY);
     }
 }
