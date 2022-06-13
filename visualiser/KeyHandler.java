@@ -15,21 +15,31 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_W){
-            wPressed = true;
+        switch(code){
+            case (KeyEvent.VK_W):
+                wPressed = true;
+            case (KeyEvent.VK_S):
+                sPressed = true;
+            case (KeyEvent.VK_A):
+                aPressed = true;
+            case (KeyEvent.VK_D):
+                dPressed = true;
         }
-        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_W){
-            wPressed = false;
+        switch(code){
+            case (KeyEvent.VK_W):
+                wPressed = false;
+            case (KeyEvent.VK_S):
+                sPressed = false;
+            case (KeyEvent.VK_A):
+                aPressed = false;
+            case (KeyEvent.VK_D):
+                dPressed = false;
         }
-        
     }
     
 }
