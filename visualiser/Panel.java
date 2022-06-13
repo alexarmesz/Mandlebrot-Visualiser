@@ -1,11 +1,8 @@
 package visualiser;
 
-import visualiser.CoordsHandler;
 import visualiser.axes.*;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.util.Arrays;
 
 public class Panel extends JPanel implements Runnable{
 
@@ -13,35 +10,31 @@ public class Panel extends JPanel implements Runnable{
     static final int HEIGHT = (int)(WIDTH * (0.555));
     static final Dimension SCREEN_SIZE = new Dimension(WIDTH, HEIGHT);
  
-    int[] cameraCenter;
-    CoordsHandler coordsHandler;
+    KeyHandler keyHandler = new KeyHandler();
     Thread mainThread;
     Graphics graphics;
+
     Image image;
-    XLine xLine;
-    YLine yLine;
-    TestSquare sqr;
+    Line xLine;
+    Line yLine;
 
     Panel() {
-        createGrid();
+        createAxes();
         this.setFocusable(true);
-        this.addKeyListener(new AL());
+        this.addKeyListener(keyHandler);
         this.setPreferredSize(SCREEN_SIZE);
 
         mainThread = new Thread(this);
         mainThread.start();
     }
 
-    public void createGrid(){
-
-        coordsHandler = new CoordsHandler();
-
-        xLine = new XLine(0, (HEIGHT/2), WIDTH, (HEIGHT/2));
-        yLine = new YLine((WIDTH/2), 0, (WIDTH/2), HEIGHT);
-        sqr = new TestSquare(0, 0, 100, 100);
+    public void createAxes(){
+        yLine = new Line((WIDTH/2), 0, (WIDTH/2), HEIGHT);
+        xLine = new Line(0, (HEIGHT/2), WIDTH, (HEIGHT/2));
+        
 
     }
-
+    
 
     public void paint(Graphics g) {
         image = createImage(getWidth(), getHeight());
@@ -56,8 +49,10 @@ public class Panel extends JPanel implements Runnable{
         //sqr.draw(g);
     }
 
-    public void move(){
-        coordsHandler.move();
+    public void keyEvents(){
+        if (keyHandler.wPressed){
+            xLine.displaceY -= 10;
+        }
     }
 
     public void run(){
@@ -71,21 +66,12 @@ public class Panel extends JPanel implements Runnable{
             delta += (now - lastTime) / ns;
             lastTime = now;
             if(delta >= 1){
-                move();
                 repaint();
+                keyEvents();
                 delta--;
             }
         
         }
     }
 
-    public class AL extends KeyAdapter {
-        public void keyPressed(KeyEvent e) {
-            coordsHandler.keyPressed(e);
-        }
-        public void keyReleased(KeyEvent e) {
-            coordsHandler.keyReleased(e);
-        }
-    }
-    
 }
